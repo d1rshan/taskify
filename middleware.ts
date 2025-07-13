@@ -7,6 +7,7 @@ export default clerkMiddleware(async (auth, req) => {
   if (!isPublicRoute(req)) {
     await auth.protect();
   }
+
   const { userId, orgId } = await auth();
   if (userId && isPublicRoute(req)) {
     let path = "/select-org";
@@ -22,7 +23,7 @@ export default clerkMiddleware(async (auth, req) => {
     return NextResponse.redirect(new URL("/sign-in", req.url));
   }
 
-  if (userId && orgId && req.nextUrl.pathname !== "/select-org") {
+  if (userId && !orgId && req.nextUrl.pathname !== "/select-org") {
     const orgSelection = new URL("/select-org", req.url);
     return NextResponse.redirect(orgSelection);
   }
