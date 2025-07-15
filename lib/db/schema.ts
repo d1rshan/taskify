@@ -4,3 +4,5 @@ export const boardsTable = pgTable("boards", {
   id: uuid("id").defaultRandom().primaryKey(),
   title: varchar("title", { length: 255 }).notNull(),
 });
+
+export type Board = typeof boardsTable.$inferSelect;

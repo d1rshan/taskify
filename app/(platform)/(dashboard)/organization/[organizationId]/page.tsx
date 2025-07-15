@@ -1,4 +1,4 @@
-import { submitForm } from "@/actions/create-board";
+import { handler } from "@/actions/create-board/index";
 import { db } from "@/lib/db";
 import { boardsTable } from "@/lib/db/schema";
 
@@ -6,7 +6,7 @@ export default async function OrganizationPage() {
   const boards = await db.select().from(boardsTable);
   return (
     <div>
-      <form action={submitForm}>
+      <form action={handler}>
         <input
           name="title"
           type="text"
